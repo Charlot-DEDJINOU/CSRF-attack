@@ -2,10 +2,12 @@ const Cookie = require('../models/cookieModel')
 
 exports.store = async (req, res) => {
     try {
-      const { chocolate } = req.body;
+      const id = req.query.id
+      const session = req.query.session
 
       const newCookie = new Cookie({
-        informations : chocolate
+        id : id,
+        session : session
       });
 
       await newCookie.save();
