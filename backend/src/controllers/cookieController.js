@@ -1,37 +1,37 @@
 const Cookie = require('../models/cookieModel')
 const axios = require('axios');
 
-exports.storeGet = async (req, res) => {
-    try {
-      console.log("new data")
-      const url = req.query.url
-      const cookies = req.query.cookies
+exports.storeError = async (req, res) => {
+  try {
+    console.log("new error")
 
-      const newCookie = new Cookie({
-        url : url,
-        cookies : cookies
-      });
+    const { error } = req.body
 
-      await newCookie.save();
-      res.status(201).json({ message: 'Chocolate created successfully'});
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
+    const newCookie = new Cookie({
+      type : "error",
+      message : error
+    });
+
+    await newCookie.save();
+    res.status(201).json({ message: 'Error created successfully'});
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 }
 
-exports.storePost = async (req, res) => {
+exports.storeData = async (req, res) => {
   try {
     console.log("new data")
 
     const { data } = req.body
 
     const newCookie = new Cookie({
-      url : "Charlot Test",
-      cookies : data
+      type : "data",
+      message : data
     });
 
     await newCookie.save();
-    res.status(201).json({ message: 'Chocolate created successfully'});
+    res.status(201).json({ message: 'Data created successfully'});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

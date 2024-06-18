@@ -14,7 +14,7 @@ app.use(cors({
     credentials: false
 }));
 
-app.use('/chocolate', apiRoutes);
+app.use('/api', apiRoutes);
 
 routemap(app);
 
