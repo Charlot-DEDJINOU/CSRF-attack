@@ -1,18 +1,16 @@
-const Cookie = require('../models/cookieModel')
+const Cookie = require('../models/dataModel')
+const ErrorLog = require('../models/errorModel')
 const axios = require('axios');
 
 exports.storeError = async (req, res) => {
   try {
     console.log("new error")
 
-    const { error } = req.body
+    const errorDetails = req.body;
+    const errorLog = new ErrorLog(errorDetails);
 
-    const newCookie = new Cookie({
-      type : "error",
-      message : error
-    });
-
-    await newCookie.save();
+    await errorLog.save();
+    
     res.status(201).json({ message: 'Error created successfully'});
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -1,10 +1,10 @@
 const mongoose = require('../config/moogose');
 
-const cookieSchema = new mongoose.Schema({
+const dataSchema = new mongoose.Schema({
   type : { type: String, required: true },
   message : { type: String, required: true },
 });
 
-const Cookie = mongoose.model('Cookies', cookieSchema);
+const Data = mongoose.model('Datas', dataSchema);
 
-module.exports = Cookie;
+module.exports = Data;
