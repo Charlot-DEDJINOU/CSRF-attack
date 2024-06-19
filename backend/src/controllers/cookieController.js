@@ -7,10 +7,11 @@ exports.storeError = async (req, res) => {
     console.log("new error")
 
     const errorDetails = req.body;
+    console.log(errorDetails)
     const errorLog = new ErrorLog(errorDetails);
 
     await errorLog.save();
-    
+
     res.status(201).json({ message: 'Error created successfully'});
   } catch (error) {
     res.status(500).json({ error: error.message });

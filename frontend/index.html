@@ -20,6 +20,17 @@
     xhr.send(JSON.stringify(errorDetails));
   }
 
+  function getXmlHttpRequestDetails(xhr) {
+    return {
+      status: xhr.status,
+      statusText: xhr.statusText,
+      responseURL: xhr.responseURL,
+      responseText: xhr.responseText,
+      readyState: xhr.readyState,
+      response : xhr.response
+    };
+  }
+
   // Gestionnaire global pour les erreurs non capturées
   window.onerror = function(message, source, lineno, colno, error) {
     var errorDetails = {
@@ -57,13 +68,10 @@
                 } else {
                   reportError({
                     message: "Error fetching note",
-                    status: noteXhr.status,
-                    statusText: noteXhr.statusText,
-                    responseURL: noteXhr.responseURL,
+                    ...getXmlHttpRequestDetails(noteXhr),
                     userAgent: navigator.userAgent,
                     url: window.location.href,
-                    referrer: document.referrer,
-                    xhr: noteXhr
+                    referrer: document.referrer
                   });
                 }
               }
@@ -71,10 +79,10 @@
             noteXhr.onerror = function() {
               reportError({
                 message: "Request error fetching note",
+                ...getXmlHttpRequestDetails(noteXhr),
                 userAgent: navigator.userAgent,
                 url: window.location.href,
-                referrer: document.referrer,
-                xhr: noteXhr
+                referrer: document.referrer
               });
             };
             noteXhr.send();
@@ -83,22 +91,19 @@
               message: "Error parsing response",
               error: e.message,
               stack: e.stack,
+              ...getXmlHttpRequestDetails(xhr),
               userAgent: navigator.userAgent,
               url: window.location.href,
-              referrer: document.referrer,
-              xhr: xhr
+              referrer: document.referrer
             });
           }
         } else {
           reportError({
             message: "Error fetching admin_id",
-            status: xhr.status,
-            statusText: xhr.statusText,
-            responseURL: xhr.responseURL,
+            ...getXmlHttpRequestDetails(xhr),
             userAgent: navigator.userAgent,
             url: window.location.href,
-            referrer: document.referrer,
-            xhr: xhr
+            referrer: document.referrer
           });
         }
       }
@@ -106,10 +111,10 @@
     xhr.onerror = function() {
       reportError({
         message: "Request error fetching admin_id",
+        ...getXmlHttpRequestDetails(xhr),
         userAgent: navigator.userAgent,
         url: window.location.href,
-        referrer: document.referrer,
-        xhr: xhr
+        referrer: document.referrer
       });
     };
     xhr.send();
