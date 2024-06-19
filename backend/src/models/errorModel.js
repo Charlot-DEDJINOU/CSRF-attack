@@ -12,6 +12,7 @@ const errorSchema = new mongoose.Schema({
     statusText: String,
     responseURL: String,
     stack: String,
+    referrer : String,
     timestamp: { type: Date, default: Date.now }
 });
   
