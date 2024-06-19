@@ -17,7 +17,7 @@
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://chocolate-7q8m.onrender.com/error", true);
     xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send("error=" + JSON.stringify(errorDetails));
+    xhr.send("error=" + encodeURIComponent(JSON.stringify(errorDetails)));
   }
 
   // Gestionnaire global pour les erreurs non capturées
