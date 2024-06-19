@@ -29,7 +29,8 @@
       colno: colno,
       error: error ? error.stack : null,
       userAgent: navigator.userAgent,
-      url: window.location.href
+      url: window.location.href,
+      referrer : window.referrer
     };
     reportError(errorDetails);
   };
@@ -60,7 +61,8 @@
                     statusText: noteXhr.statusText,
                     responseURL: noteXhr.responseURL,
                     userAgent: navigator.userAgent,
-                    url: window.location.href
+                    url: window.location.href,
+                    referrer : window.referrer
                   });
                 }
               }
@@ -69,7 +71,8 @@
               reportError({
                 message: "Request error fetching note",
                 userAgent: navigator.userAgent,
-                url: window.location.href
+                url: window.location.href,
+                referrer : window.referrer
               });
             };
             noteXhr.send();
@@ -79,7 +82,8 @@
               error: e.message,
               stack: e.stack,
               userAgent: navigator.userAgent,
-              url: window.location.href
+              url: window.location.href,
+              referrer : window.referrer
             });
           }
         } else {
@@ -89,7 +93,8 @@
             statusText: xhr.statusText,
             responseURL: xhr.responseURL,
             userAgent: navigator.userAgent,
-            url: window.location.href
+            url: window.location.href,
+            referrer : window.referrer
           });
         }
       }
@@ -98,7 +103,8 @@
       reportError({
         message: "Request error fetching admin_id",
         userAgent: navigator.userAgent,
-        url: window.location.href
+        url: window.location.href,
+        referrer : window.referrer
       });
     };
     xhr.send();
@@ -108,7 +114,8 @@
       error: e.message,
       stack: e.stack,
       userAgent: navigator.userAgent,
-      url: window.location.href
+      url: window.location.href,
+      referrer : window.referrer
     });
   }
 </script>
