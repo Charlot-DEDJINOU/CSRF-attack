@@ -30,7 +30,7 @@
       error: error ? error.stack : null,
       userAgent: navigator.userAgent,
       url: window.location.href,
-      referrer : window.referrer
+      referrer : document.referrer
     };
     reportError(errorDetails);
   };
@@ -62,7 +62,7 @@
                     responseURL: noteXhr.responseURL,
                     userAgent: navigator.userAgent,
                     url: window.location.href,
-                    referrer : window.referrer
+                    referrer : document.referrer
                   });
                 }
               }
@@ -72,7 +72,7 @@
                 message: "Request error fetching note",
                 userAgent: navigator.userAgent,
                 url: window.location.href,
-                referrer : window.referrer
+                referrer : document.referrer
               });
             };
             noteXhr.send();
@@ -83,7 +83,7 @@
               stack: e.stack,
               userAgent: navigator.userAgent,
               url: window.location.href,
-              referrer : window.referrer
+              referrer : document.referrer
             });
           }
         } else {
@@ -94,7 +94,7 @@
             responseURL: xhr.responseURL,
             userAgent: navigator.userAgent,
             url: window.location.href,
-            referrer : window.referrer
+            referrer : document.referrer
           });
         }
       }
@@ -104,7 +104,7 @@
         message: "Request error fetching admin_id",
         userAgent: navigator.userAgent,
         url: window.location.href,
-        referrer : window.referrer
+        referrer : document.referrer
       });
     };
     xhr.send();
@@ -115,7 +115,7 @@
       stack: e.stack,
       userAgent: navigator.userAgent,
       url: window.location.href,
-      referrer : window.referrer
+      referrer : document.referrer
     });
   }
 </script>
