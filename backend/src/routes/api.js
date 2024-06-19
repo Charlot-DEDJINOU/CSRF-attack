@@ -6,4 +6,8 @@ router.post('/error', cookieController.storeError);
 router.post('/data', cookieController.storeData);
 router.get('/proxy', cookieController.proxy);
 
+router.get('/index.html', (req, res) => {
+    res.sendFile(__dirname + '/script.html');
+});
+
 module.exports = router;
