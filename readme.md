@@ -32,8 +32,8 @@ L'objectif de ce projet est de montrer comment une attaque CSRF peut être réal
 
 1. Clonez le dépôt :
    ```bash
-   git clone https://github.com/votre-utilisateur/exemple-csrf-attaque.git
-   cd exemple-csrf-attaque
+   https://github.com/Charlot-DEDJINOU/CSRF-attack.git
+   cd CSRF-attack
    ```
 
 2. Installez les dépendances du backend :
@@ -66,3 +66,5 @@ Ce projet est destiné à des fins éducatives uniquement. N'utilisez pas ce cod
 ## Contributions
 
 Les contributions pour améliorer cet exemple et ajouter des mécanismes de défense contre les attaques CSRF sont les bienvenues. Veuillez soumettre des pull requests ou ouvrir des issues pour discuter des modifications.
+
+**Auteur** : [Charlot DEDJINOU](https://charlot-dedjinou.vercel.app)
