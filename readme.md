@@ -67,4 +67,4 @@ Ce projet est destiné à des fins éducatives uniquement. N'utilisez pas ce cod
 
 Les contributions pour améliorer cet exemple et ajouter des mécanismes de défense contre les attaques CSRF sont les bienvenues. Veuillez soumettre des pull requests ou ouvrir des issues pour discuter des modifications.
 
-**Auteur** : [Charlot DEDJINOU](https://charlot-dedjinou.vercel.app)
+**Auteur** : [Charlot DEDJINOU](https://charlotdedjinou.com)
